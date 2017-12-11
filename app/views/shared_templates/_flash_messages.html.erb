@@ -16,16 +16,13 @@
     background-color: #ee4b4c;
   }
 
-  .flash-msg.success {
+  .flash-msg.success, .flash-msg.notice{
     background-color: #00a43e;
   }
 </style>
 
 <script>
-  setTimeout(function () {
-      $('.flash-msg').fadeOut(300, function(){
-          $(this).remove();
-      });
-  }, 5000);
-
+    setTimeout(function() {
+        document.getElementsByClassName('flash-msg')[0].style.display ='none'
+    }, 10000);
 </script>

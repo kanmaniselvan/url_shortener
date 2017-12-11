@@ -27,7 +27,7 @@ class ShortenUrl < ApplicationRecord
   private
   def short_code_and_url
     unless self.has_valid_short_code?
-      errors.add(:short_code, "should be between 2 to 6 characters in any of [a-z], [A-Z], [0-9] characters")
+      errors.add(:short_code, "should be between 2 to 6 characters within [a-z], [A-Z], [0-9]")
     end
 
     unless self.has_valid_url?

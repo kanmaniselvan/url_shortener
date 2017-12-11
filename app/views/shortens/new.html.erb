@@ -1,0 +1,32 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'devise/form' %>
+<% end %>
+
+<%= render 'shared_templates/logout_link' %>
+
+<% if 'edit' == params[:action] || 'update' == params[:action] %>
+  <% submit_url = shorten_url(id: @shorten_url.short_code) %>
+<% else %>
+  <%  submit_url = shortens_url %>
+<% end %>
+
+<%= form_for @shorten_url, url: submit_url do |f| %>
+
+  <ul class="form-box">
+    <%= render 'shared_templates/flash_messages' %>
+    <li class="ip-field">
+      <%= f.label 'URL *', class: 'f-label field-required' %>
+      <br/>
+      <%= f.text_area :url, class: 'txt-box' %>
+    </li>
+
+    <li class="ip-field">
+      <%= f.label 'Short Code *', class: 'f-label field-required' %>
+      <br/>
+      <%= f.text_field :short_code, class: 'txt-box', maxlength: 6 %>
+    </li>
+
+    <%= f.submit 'Submit', data: { disable_with: 'Submitting ...' } %>
+    <%= render 'shared_templates/go_back_link' %>
+  </ul>
+<% end %>

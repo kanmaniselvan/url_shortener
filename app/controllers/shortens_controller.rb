@@ -33,7 +33,7 @@ class ShortensController < ApplicationController
   end
 
   def update
-    if @shorten_url.update_attributes!(shorten_params)
+    if @shorten_url.update_attributes(shorten_params)
       flash[:success] = 'Updated Successfully!'
 
       redirect_to shortens_path
