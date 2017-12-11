@@ -23,6 +23,13 @@ class ShortenUrl < ApplicationRecord
     short_code
   end
 
+  def update_last_seen_and_redirect_count
+    self.last_seen_date = DateTime.now
+    self.redirect_count += 1
+
+    self.save!
+  end
+
   private
   def validate_short_code
     return if self.has_valid_short_code?

@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   resources :shortens, only: [:index, :create, :show]
 
-  map.connect ':id', controller: 'shortens', action: 'show'
+  get ':id', controller: 'shortens', action: 'show'
 end

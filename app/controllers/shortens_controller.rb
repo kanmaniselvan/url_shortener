@@ -13,7 +13,20 @@ class ShortensController < ApplicationController
   end
 
   def show
+    shorten_url = ShortenUrl.where(short_code: params[:id]).first
 
+    if shorten_url.blank?
+      flash[:error] = 'Invalid Short Code!'
+      redirect_to shortens_path
+    end
+
+    shorten_url.update_last_seen_and_redirect_count
+
+    redirect_to shorten_url.url
+
+  rescue StandardError => ex
+    flast[:error] = ex
+    redirect_to shortens_path
   end
 
   private
