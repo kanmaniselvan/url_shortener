@@ -1,7 +1,9 @@
 class ShortenUrl < ApplicationRecord
   SHORT_CODE_SAVE_REGEX = /^[0-9a-zA-Z_]{2,6}$/
 
-  validates :url, :short_code, presence: true
+  belongs_to :user
+
+  validates :url, :short_code, :user_id, presence: true
   validates_uniqueness_of :short_code
 
   before_save :validate_short_code

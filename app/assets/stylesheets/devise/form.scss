@@ -1,0 +1,40 @@
+.form-box {
+    margin-top: 14%;
+    height: auto;
+    margin-left: 36%;
+    width: 300px;
+    padding: 20px;
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: #fbfbfb;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  .actions {
+    margin: 20px 0;
+  }
+
+  .ip-field {
+    margin-bottom: 20px;
+
+    input {
+      width: 250px;
+      padding: 5px;
+      border: 1px solid #000000;
+    }
+
+    .field_with_errors {
+      label {
+        color: red;
+      }
+    }
+  }
+
+  #error_explanation {
+    h2 {
+      display: none;
+    }
+    ul {
+      color: red;
+    }
+  }
+}

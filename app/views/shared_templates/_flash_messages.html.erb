@@ -1,0 +1,31 @@
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :class => "flash-msg #{name}" if msg.is_a?(String) %>
+<% end %>
+
+<style type="text/css">
+  .flash-msg {
+    color: #ffffff;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: auto;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .flash-msg.error, .flash-msg.alert {
+    background-color: #ee4b4c;
+  }
+
+  .flash-msg.success {
+    background-color: #00a43e;
+  }
+</style>
+
+<script>
+  setTimeout(function () {
+      $('.flash-msg').fadeOut(300, function(){
+          $(this).remove();
+      });
+  }, 5000);
+
+</script>
