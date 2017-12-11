@@ -1,24 +1,12 @@
-# README
+# URL Shortener
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Shorten your big URLs
 
-Things you may want to cover:
+# Setup
+- `bundle install`
+- `rake db:create`
+- `rake db:migrate`
+- `rake db:seed`
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Run
+- Hit `localhost:3000` and give the email as `user@example.com` and password as `password`. 
