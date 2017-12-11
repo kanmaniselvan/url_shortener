@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     match '/logout' => 'devise/sessions#destroy', via: [:get, :delete]
   end
 
-  resources :shortens, only: [:index, :create, :show]
+  resources :shortens
 
   get ':id', controller: 'shortens', action: 'show'
 end

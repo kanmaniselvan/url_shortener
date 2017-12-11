@@ -1,36 +1,71 @@
 class ShortensController < ApplicationController
-  def index
+  before_action :require_shorten_url, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @shorten_urls = current_user.shorten_urls
+  end
+
+  def new
+    @shorten_url = ShortenUrl.new
   end
 
   def create
-    ShortenUrl.create!(shorten_params)
+    @shorten_url = ShortenUrl.new(shorten_params)
 
-    render :index
-  rescue StandardError => ex
-    flast.now[:error] = ex
-    render :index
+    if @shorten_url.save
+      flash[:success] = 'Created Successfully!'
+
+      redirect_to shortens_path
+    else
+      flash.now[:error] = @shorten_url.errors.full_messages.to_sentence
+      render :new
+    end
   end
 
   def show
-    shorten_url = ShortenUrl.where(short_code: params[:id]).first
+    @shorten_url.update_last_seen_and_redirect_count
 
-    if shorten_url.blank?
-      flash[:error] = 'Invalid Short Code!'
+    redirect_to @shorten_url.url
+  end
+
+  def edit
+    render :new
+  end
+
+  def update
+    if @shorten_url.update_attributes!(shorten_params)
+      flash[:success] = 'Updated Successfully!'
+
       redirect_to shortens_path
+    else
+      flash.now[:error] = @shorten_url.errors.full_messages.to_sentence
+      render :new
     end
+  end
 
-    shorten_url.update_last_seen_and_redirect_count
+  def destroy
+    @shorten_url.destroy!
 
-    redirect_to shorten_url.url
+    flash[:success] = 'Deleted Successfully!'
 
-  rescue StandardError => ex
-    flast[:error] = ex
     redirect_to shortens_path
   end
 
   private
   def shorten_params
-    params.permit(:url, :short_code)
+    params.require(:shorten_url).permit(:url, :short_code).tap do |param|
+      param[:user_id] = current_user.id
+    end
+  end
+
+  def require_shorten_url
+    @shorten_url = ShortenUrl.where(short_code: params[:id]).first
+
+    if @shorten_url.blank?
+      flash[:error] = 'Invalid Short Code!'
+      redirect_to shortens_path and return false
+    end
+
+    @shorten_url
   end
 end
