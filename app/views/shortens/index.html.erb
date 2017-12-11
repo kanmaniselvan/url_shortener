@@ -1,0 +1,31 @@
+<%= render 'shared_templates/flash_messages' %>
+<%= render 'shared_templates/logout_link' %>
+
+<%= stylesheet_link_tag 'shortens/index' %>
+
+<div class="page-wrap">
+  <div class="create-new">
+    <div class="create-new-link">
+      <%= link_to 'New Shorten URL', new_shorten_url, class: 'btn' %>
+    </div>
+  </div>
+
+  <div class="url-lists-cont">
+    <h4>Shortened URLs:</h4>
+    <div class="list">
+      <ul>
+        <% @shorten_urls.each do |shorten_url| %>
+          <li>
+            <div class="shorten-url">
+              <span class="short-code"><%= link_to shorten_url.short_code, "#{root_url}#{shorten_url.short_code}", target: '_blank' %></span> <span class="url">● URL: <%= shorten_url.url %> ● Last seen : <%= shorten_url.last_seen_date %> ● Redirect count : <%= shorten_url.redirect_count %> </span>
+            </div>
+            <div class="action-links ">
+              <%= link_to 'Edit', edit_shorten_url(id: shorten_url.short_code), class: 'edit' %> |
+              <%= link_to 'Delete', shorten_url(id: shorten_url.short_code), method: :delete, data: {confirm: 'Are you sure?'}, class: 'delete' %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
